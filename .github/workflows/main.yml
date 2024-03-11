@@ -23,8 +23,5 @@ jobs:
 
     - name: Build and test with Maven
       run: |
-        ls
-        cd Users
-        ls
-        cd Users
+        cd Users/Users
         mvn clean verify
