@@ -6,7 +6,7 @@ on:
       - main  # Spremenite to glede na vašo privzeto vejo
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
