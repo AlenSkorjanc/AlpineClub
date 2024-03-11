@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        path: Users
 
     - name: Set up Maven
       uses: actions/setup-java@v2
