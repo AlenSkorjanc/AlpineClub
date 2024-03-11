@@ -23,6 +23,8 @@ jobs:
 
     - name: Build and test with Maven
       run: |
+        ls
         cd Users
         ls
+        cd Users
         mvn clean verify
