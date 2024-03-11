@@ -1,0 +1,23 @@
+name: Maven Build and Test
+
+on:
+  push:
+    branches:
+      - main  # Spremenite to glede na vašo privzeto vejo
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Maven
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'jdk'
+        java-version: '21'
+
+    - name: Build and test with Maven
+      run: mvn clean verify
