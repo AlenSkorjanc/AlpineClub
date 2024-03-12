@@ -3,7 +3,7 @@ name: Maven Build and Test
 on:
   push:
     branches:
-      - main  # Spremenite to glede na vašo privzeto vejo
+      - main
 
 jobs:
   test:
