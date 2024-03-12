@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
