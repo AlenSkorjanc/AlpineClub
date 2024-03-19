@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  events:
+    image: quarkus/events-jvm
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mongodb
+    environment:
+      - QUARKUS_MONGODB_CONNECTION_STRING=mongodb://mongodb:27017/
+      - QUARKUS_MONGODB_DATABASE=events
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:jammy
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:

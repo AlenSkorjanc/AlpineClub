@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "alp.club";
+option java_outer_classname = "HelloGrpcProto";
+
+import "google/protobuf/timestamp.proto";
+
+message Event {
+    string id = 1;
+    string user_id = 2;
+    string name = 3;
+    string description = 4;
+    google.protobuf.Timestamp start = 5;
+    google.protobuf.Timestamp end = 6;
+}
+
+service EventService {
+    rpc GetAllEvents(EmptyRequest) returns (stream EventsResponse);
+
+    rpc GetEventById(EventIdRequest) returns (EventResponse);
+
+    rpc AddEvent(EventRequest) returns (EventResponse);
+
+    rpc UpdateEvent(EventRequest) returns (EventResponse);
+
+    rpc DeleteEventById(EventIdRequest) returns (EmptyResponse);
+}
+
+message EventIdRequest {
+    string id = 1;
+}
+
+message EventRequest {
+    Event event = 1;
+}
+
+message EventResponse {
+    Event event = 1;
+}
+
+message EventsResponse {
+    repeated Event events = 1;
+}
+
+message EmptyRequest {}
+
+message EmptyResponse {}
