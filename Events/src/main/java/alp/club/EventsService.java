@@ -73,7 +73,7 @@ public class EventsService extends EventServiceGrpc.EventServiceImplBase {
         EventEntity existingEventEntity = eventsRepository.findById(new ObjectId(event.getId()));
         if (existingEventEntity != null) {
             EventEntity updatedEventEntity = mapEventToEventEntity(event);
-            eventsRepository.persist(updatedEventEntity);
+            eventsRepository.update(updatedEventEntity);
             EventResponse response = EventResponse.newBuilder().setEvent(event).build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
