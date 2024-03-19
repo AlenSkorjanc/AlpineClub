@@ -1,0 +1,38 @@
+name: Events Build and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:jammy
+        ports:
+          - 27017:27017
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        path: Events
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '21'
+
+    - name: Build Quarkus application
+      run: |
+        cd Events/Events
+        ./mvnw clean package -DskipTests
+
+    - name: Run tests
+      run: |
+        cd Events/Events
+        ./mvnw test
