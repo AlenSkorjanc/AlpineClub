@@ -1,0 +1,39 @@
+version: '3.3'
+
+services:
+  articles:
+    image: quarkus/articles-jvm:latest
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mongodb
+      - artemis
+    environment:
+      - quarkus.mongodb.connection-string=mongodb://mongodb:27017/
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:jammy
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data_articles:/data/db
+    networks:
+      - app-network
+
+  artemis:
+    image: apache/activemq-artemis:latest-alpine
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data_articles:
