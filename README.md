@@ -1,8 +1,8 @@
 # AlpineClub
 
 This project contains 3 microservices for alpine club:
-- [Users](https://example.com/microservice1-docs)
+- [Users](https://github.com/AlenSkorjanc/AlpineClub/tree/main/Users)
 - [Events](https://github.com/AlenSkorjanc/AlpineClub/tree/main/Events)
-- Articles
+- [Articles](https://github.com/AlenSkorjanc/AlpineClub/tree/main/Events)
 
 for more information click on the microservice.
