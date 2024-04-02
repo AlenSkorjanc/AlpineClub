@@ -4,6 +4,26 @@ services:
     build:
       context: .
     container_name: alpine_club_users
-    image: alenskorjanc123/alpine_club_users:1.0
+    image: alpine_club_users:latest
     ports:
-      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - users-network
+    environment:
+      - spring.data.mongodb.uri=mongodb://mongodb:27017/
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:jammy
+    volumes:
+      - mongodb_data_users:/data/db
+    networks:
+      - users-network
+
+networks:
+  users-network:
+    driver: bridge
+
+volumes:
+  mongodb_data_users:

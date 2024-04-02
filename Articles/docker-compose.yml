@@ -4,19 +4,18 @@ services:
   articles:
     image: quarkus/articles-jvm:latest
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
-      - mongodb
-      - artemis
+      artemis:
+        condition: service_healthy
     environment:
       - quarkus.mongodb.connection-string=mongodb://mongodb:27017/
+      - quarkus.artemis.url=tcp://artemis:61616/
     networks:
       - app-network
 
   mongodb:
     image: mongo:jammy
-    ports:
-      - "27017:27017"
     volumes:
       - mongodb_data_articles:/data/db
     networks:
@@ -24,10 +23,11 @@ services:
 
   artemis:
     image: apache/activemq-artemis:latest-alpine
-    ports:
-      - "61616:61616"
-      - "8161:8161"
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "61616"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - app-network
 
