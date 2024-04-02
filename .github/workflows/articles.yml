@@ -1,4 +1,4 @@
-name: Articles workflow
+name: Articles Build and Test
 
 on:
   push:
