@@ -1,0 +1,28 @@
+name: Mobile gateway Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        path: MobileGateway
+
+    - name: Set up Maven
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '21'
+        cache: maven
+
+    - name: Build and test with Maven
+      run: |
+        cd MobileGateway/MobileGateway
+        mvn -B package --file pom.xml
