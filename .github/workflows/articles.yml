@@ -56,7 +56,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: Articles
-          file: src/main/docker/Dockerfile.jvm
+          file: Articles/src/main/docker/Dockerfile.jvm
           push: true
           tags: alp_club-articles:latest
