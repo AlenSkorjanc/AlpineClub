@@ -49,6 +49,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          run: cd Articles/Articles
           push: true
           tags: user/alp_club-articles:latest
-          run: cd Articles/Articles
