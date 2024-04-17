@@ -22,11 +22,7 @@ jobs:
     - name: Build Quarkus application and run tests
       run: |
         cd Articles
-        ./mvnw clean package -DskipTests
-        
-    - name: Copy Quarkus application files to Docker context
-      run: |
-        cp -r Articles/target/quarkus-app Articles/src/main/docker/target
+        ./mvnw clean package
   
   docker:
     runs-on: ubuntu-latest
@@ -46,11 +42,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+      
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: Articles/src/main/docker
-          file: Articles/src/main/docker/Dockerfile.jvm
+          context: Articles
+          file: /src/main/docker/Dockerfile.jvm
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-articles:latest
+          tags: alp_club-articles:latest
