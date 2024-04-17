@@ -49,4 +49,4 @@ jobs:
         context: ./Users
         file: Users/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-articles:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-users:latest
