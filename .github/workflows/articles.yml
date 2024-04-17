@@ -53,6 +53,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: Articles/src/main/docker/
-          dockerfile: Dockerfile.jvm
+          file: Dockerfile.jvm
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-articles:latest
