@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_push:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
       run: |
         cd Articles
         ./mvnw clean package
-
+  
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
         
