@@ -22,29 +22,21 @@ public class WebGatewayApplication {
     public RouteLocator routeLocator(RouteLocatorBuilder builder, Properties properties) {
         return builder.routes()
                 .route(r -> r.path("/users/**")
-                        .filters(f -> {
-                            return f.addRequestHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE)
-                                    .addResponseHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE);
-                        })
+                        .filters(f -> f.addRequestHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE)
+                                .addResponseHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE))
                         .uri(properties.getUsersUrl())
                 )
-                .route(r -> r.path("/events/**")
-                        .filters(f -> {
-                            return f.stripPrefix(1)
-                                    .addRequestHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE)
-                                    .addResponseHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE);
-                        })
-                        .uri(properties.getEventsUrl())
-                )
                 .route(r -> r.path("/articles/**")
-                        .filters(f -> {
-                            return f.addRequestHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE)
-                                    .addResponseHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE);
-                        })
+                        .filters(f -> f.addRequestHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE)
+                                .addResponseHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE))
                         .uri(properties.getArticlesUrl())
+                )
+                .route(r -> r.path("/events/**")
+                        .filters(f -> f.stripPrefix(1)
+                                .addRequestHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE)
+                                .addResponseHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE))
+                        .uri(properties.getEventsUrl())
                 )
                 .build();
     }
-
-
 }
