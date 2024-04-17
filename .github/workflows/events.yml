@@ -6,14 +6,8 @@ on:
       - main
 
 jobs:
-  test:
+  build_and_push:
     runs-on: ubuntu-latest
-
-    services:
-      mongodb:
-        image: mongo:jammy
-        ports:
-          - 27017:27017
     
     steps:
     - name: Checkout repository
@@ -27,12 +21,7 @@ jobs:
         distribution: 'adopt'
         java-version: '21'
 
-    - name: Build Quarkus application
+    - name: Build Quarkus application and run tests
       run: |
         cd Events/Events
-        ./mvnw clean package -DskipTests
-
-    - name: Run tests
-      run: |
-        cd Events/Events
-        ./mvnw test
+        ./mvnw clean package
