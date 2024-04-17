@@ -42,4 +42,4 @@ jobs:
         context: ./Articles
         file: Articles/src/main/docker/Dockerfile.jvm
         push: true
-        tags: alp_club-articles:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-articles:latest
