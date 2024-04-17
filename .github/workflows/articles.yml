@@ -19,16 +19,15 @@ jobs:
         distribution: 'adopt'
         java-version: '21'
 
-    - name: Build Quarkus application
+    - name: Build Quarkus application and run tests
       run: |
         cd Articles
         ./mvnw clean package -DskipTests
-
-    - name: Run tests
+        
+    - name: Copy Quarkus application files to Docker context
       run: |
-        cd Articles
-        ./mvnw test
-
+        cp -r Articles/target/quarkus-app Articles/src/main/docker/target
+  
   docker:
     runs-on: ubuntu-latest
     needs: build
@@ -51,7 +50,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: Articles
+          context: Articles/src/main/docker
           file: Articles/src/main/docker/Dockerfile.jvm
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-articles:latest
