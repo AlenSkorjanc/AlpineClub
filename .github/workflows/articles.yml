@@ -53,4 +53,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: user/AlpClub-articles:latest
+          tags: user/alp_club-articles:latest
