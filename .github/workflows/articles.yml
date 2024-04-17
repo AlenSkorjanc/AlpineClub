@@ -12,8 +12,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      with:
-        path: Articles
 
     - name: Set up Java
       uses: actions/setup-java@v3
@@ -23,12 +21,12 @@ jobs:
 
     - name: Build Quarkus application
       run: |
-        cd Articles/Articles
+        cd Articles
         ./mvnw clean package -DskipTests
 
     - name: Run tests
       run: |
-        cd Articles/Articles
+        cd Articles
         ./mvnw test
 
   docker:
