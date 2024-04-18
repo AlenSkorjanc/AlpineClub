@@ -1,10 +1,10 @@
 version: '3.3'
 services:
   mobile_gateway:
-    image: alenskorjanc123/alp_club_mobile_gateway:latest
+    image: alenskorjanc123/alp_club-mobile_gateway:latest
     ports:
-      - "8085:8085"
+      - "8443:8443"
     environment:
       - app.usersUrl=http://host.docker.internal:8081/users
-      - app.eventsUrl=http://host.docker.internal:9000
+      - app.eventsUrl=https://host.docker.internal:9000
       - app.articlesUrl=http://host.docker.internal:8080/articles

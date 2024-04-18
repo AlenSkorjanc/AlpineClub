@@ -3,7 +3,7 @@ services:
   web_gateway:
     image: alenskorjanc123/alp_club_web_gateway:latest
     ports:
-      - "8086:8086"
+      - "8444:8444"
     environment:
       - app.usersUrl=http://host.docker.internal:8081/users
       - app.eventsUrl=http://host.docker.internal:9000
