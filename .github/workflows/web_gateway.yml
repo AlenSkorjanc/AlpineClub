@@ -41,6 +41,6 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ./WebGateway
-        file: WebGateway/src/main/docker/Dockerfile.jvm
+        file: WebGateway/Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-web_gateway:latest
