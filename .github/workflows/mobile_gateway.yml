@@ -41,6 +41,6 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ./MobileGateway
-        file: MobileGateway/src/main/docker/Dockerfile.jvm
+        file: MobileGateway/Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-mobile_gateway:latest
