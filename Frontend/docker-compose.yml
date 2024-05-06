@@ -1,0 +1,64 @@
+version: '3.1'
+
+services:
+
+  login:
+    container_name: login
+    image: alenskorjanc123/login_mf:1.0
+    environment:
+      - GATEWAY_URL=https://host.docker.internal:8444
+    ports:
+      - 3002:3002
+    networks:
+      - alp_club
+  
+  articles:
+    container_name: articles
+    image: alenskorjanc123/articles_mf:1.0
+    environment:
+      - GATEWAY_URL=https://host.docker.internal:8444
+    ports:
+      - 3001:3001
+    networks:
+      - alp_club
+
+  events_gateway:
+    container_name: events_gateway
+    image: alenskorjanc123/events_gateway:1.0
+    environment:
+      - GATEWAY_URL=host.docker.internal:8444
+    ports:
+      - 3300:3300
+    networks:
+      - alp_club
+  
+  events:
+    container_name: events
+    image: alenskorjanc123/events_mf:1.0
+    depends_on:
+      - events_gateway
+    environment:
+      - GATEWAY_URL=http://host.docker.internal:3300/events
+    ports:
+      - 3003:3003
+    networks:
+      - alp_club
+
+  host:
+    container_name: host
+    image: alenskorjanc123/host_mf:1.0
+    depends_on:
+      - login
+      - articles
+      - events
+    environment:
+      - LOGIN_REMOTE_ENTRY=http://login:3001/remoteEntry.js
+      - ARTICLES_REMOTE_ENTRY=http://articles:3002/remoteEntry.js
+      - EVENTS_REMOTE_ENTRY=http://events:3003/remoteEntry.js
+    ports:
+      - 3000:3000
+    networks:
+      - alp_club
+
+networks:
+  alp_club: {}
