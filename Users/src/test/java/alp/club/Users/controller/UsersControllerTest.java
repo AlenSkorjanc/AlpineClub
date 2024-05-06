@@ -79,6 +79,8 @@ public class UsersControllerTest {
     @Test
     public void testPostUserEndpoint() throws Exception {
         User user = createUser();
+        user.setPassword("test");
+
         UserEntity userEntity = new UserEntity(user);
         userEntity.setId(UUID.randomUUID().toString());
 
