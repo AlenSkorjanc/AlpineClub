@@ -22,7 +22,7 @@ jobs:
       - name: Build Docker Image
         run: |
           cd Frontend/login
-          docker build -t alenskorjanc123/login_mf:latest .
+          docker build -t alenskorjanc123/alp_club-login_mf:latest .
       
       - name: Push Docker Image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/login_mf:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/alp_club-login_mf:latest
