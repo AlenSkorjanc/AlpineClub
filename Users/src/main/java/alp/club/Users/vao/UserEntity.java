@@ -19,6 +19,7 @@ public class UserEntity {
     private String name;
     private String surname;
     private String email;
+    private String password;
     private UserRole role;
     private UserStatus status;
     private Date created;
@@ -30,6 +31,7 @@ public class UserEntity {
         email = user.getEmail();
         role = user.getRole();
         status = user.getStatus();
+        password = user.getPassword();
     }
 
     public UserEntity(UserEntity source) {

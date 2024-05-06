@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,8 +40,8 @@ class ArticlesResourceTest {
     @Test
     void testGetAllArticles() {
         List<ArticleEntity> sampleArticles = new ArrayList<>();
-        sampleArticles.add(new ArticleEntity(new ObjectId(), new ObjectId(), "Title 1", "Content 1", 10, new Date()));
-        sampleArticles.add(new ArticleEntity(new ObjectId(), new ObjectId(), "Title 2", "Content 2", 12, new Date()));
+        sampleArticles.add(new ArticleEntity(new ObjectId(), new ObjectId(), "Title 1", "Summary 1", "Content 1", 10, LocalDateTime.now()));
+        sampleArticles.add(new ArticleEntity(new ObjectId(), new ObjectId(), "Title 2", "Summary 2", "Content 2", 12, LocalDateTime.now()));
 
         when(articlesRepository.listAllArticles()).thenReturn(Uni.createFrom().item(sampleArticles));
 

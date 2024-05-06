@@ -2,7 +2,6 @@ package alp.club;
 
 import alp.club.models.EventEntity;
 import alp.club.repository.EventsRepository;
-import com.google.protobuf.Timestamp;
 import io.grpc.stub.StreamObserver;
 import io.quarkus.grpc.GrpcService;
 import io.quarkus.mongodb.panache.PanacheQuery;
@@ -97,33 +96,26 @@ public class EventsService extends EventServiceGrpc.EventServiceImplBase {
     }
 
     private Event mapEventEntityToEvent(EventEntity eventEntity) {
-        Timestamp startTimestamp = Timestamp.newBuilder().setSeconds(eventEntity.getStart()).build();
-        Timestamp endTimestamp = Timestamp.newBuilder().setSeconds(eventEntity.getEnd()).build();
-
         return Event.newBuilder()
                 .setId(eventEntity.getId().toString())
                 .setUserId(eventEntity.getUserId())
                 .setName(eventEntity.getName())
                 .setDescription(eventEntity.getDescription())
-                .setStart(startTimestamp)
-                .setEnd(endTimestamp)
+                .setStart(eventEntity.getStart() == null ? 0 : eventEntity.getStart())
+                .setEnd(eventEntity.getEnd() == null ? 0 : eventEntity.getEnd())
                 .build();
     }
 
     private EventEntity mapEventToEventEntity(Event event) {
         EventEntity eventEntity = new EventEntity();
-        if(event.getId() != null && !event.getId().isEmpty()) {
+        if(!event.getId().isEmpty()) {
             eventEntity.setId(new ObjectId(event.getId()));
         }
         eventEntity.setUserId(event.getUserId());
         eventEntity.setName(event.getName());
         eventEntity.setDescription(event.getDescription());
-
-        // Assuming start and end are of type google.protobuf.Timestamp
-        long startSeconds = event.getStart().getSeconds();
-        long endSeconds = event.getEnd().getSeconds();
-        eventEntity.setStart(startSeconds);
-        eventEntity.setEnd(endSeconds);
+        eventEntity.setStart(event.getStart());
+        eventEntity.setEnd(eventEntity.getEnd());
 
         return eventEntity;
     }

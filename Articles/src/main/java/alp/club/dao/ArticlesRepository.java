@@ -6,6 +6,7 @@ import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.bson.types.ObjectId;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class ArticlesRepository implements ReactivePanacheMongoRepository<Articl
 
     public Uni<ArticleEntity> addArticle(ArticleEntity article) {
         article.setId(new ObjectId());
-        article.setCreated(new Date());
+        article.setCreated(LocalDateTime.now());
         return persist(article);
     }
 

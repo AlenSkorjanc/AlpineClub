@@ -52,7 +52,9 @@ public class ArticlesResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<ArticleEntity> updateArticle(ArticleEntity article) {
         logger.info("Updating article with id: {}", article.getId());
-        article.setViews(consumer.getLastViews());
+        if(article.getViews() == null || article.getViews() == 0) {
+            article.setViews(consumer.getLastViews());
+        }
         return articlesRepository.update(article);
     }
 

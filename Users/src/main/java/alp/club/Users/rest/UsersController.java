@@ -1,6 +1,7 @@
 package alp.club.Users.rest;
 
 import alp.club.Users.dao.UsersRepository;
+import alp.club.Users.dto.LoginRequest;
 import alp.club.Users.dto.User;
 import alp.club.Users.vao.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +54,7 @@ public class UsersController {
 
     @PostMapping
     public ResponseEntity<String> addUser(@RequestBody User user) {
-        if(user == null || user.getEmail() == null || user.getEmail().isEmpty()) {
+        if(user == null || user.getEmail() == null || user.getEmail().isEmpty() || user.getPassword() == null || user.getPassword().isEmpty()) {
             logger.error("Can't create user, because data is missing");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -97,6 +98,7 @@ public class UsersController {
         userEntity.setEmail(user.getEmail());
         userEntity.setStatus(user.getStatus());
         userEntity.setRole(user.getRole());
+        userEntity.setPassword(user.getPassword());
         userEntity.setUpdated(new Date());
 
         UserEntity updatedUser = usersRepository.save(userEntity);
@@ -114,5 +116,27 @@ public class UsersController {
         usersRepository.deleteById(id);
         logger.info("User with id '" + id + "' successfully deleted");
         return ResponseEntity.ok("User with id '" + id + "' successfully deleted");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
+        logger.error("Logging in user: " + loginRequest.getEmail());
+        if(loginRequest.getEmail() == null || loginRequest.getPassword() == null) {
+            logger.error("Can't login user, because data is missing");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<UserEntity> userEntity = usersRepository.findUserEntityByEmail(loginRequest.getEmail());
+        if(userEntity.isPresent()) {
+            UserEntity user = userEntity.get();
+
+            if(user.getEmail().equals(loginRequest.getEmail()) && user.getPassword().equals(loginRequest.getPassword())) {
+                return ResponseEntity.ok(new User(user));
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
