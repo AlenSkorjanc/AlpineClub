@@ -1,5 +1,6 @@
 package alp.club;
 
+import alp.club.config.BugsnagService;
 import alp.club.models.EventEntity;
 import alp.club.repository.EventsRepository;
 import io.grpc.stub.StreamObserver;
@@ -17,6 +18,9 @@ import java.util.stream.Collectors;
 public class EventsService extends EventServiceGrpc.EventServiceImplBase {
 
     private static final Logger logger = LoggerFactory.getLogger(EventsService.class);
+
+    @Inject
+    private BugsnagService bugsnagService;
 
     @Inject
     private EventsRepository eventsRepository;
@@ -118,5 +122,16 @@ public class EventsService extends EventServiceGrpc.EventServiceImplBase {
         eventEntity.setEnd(eventEntity.getEnd());
 
         return eventEntity;
+    }
+
+    @Override
+    public void testBugsnag(EmptyRequest request, StreamObserver<MessageResponse> responseObserver) {
+        if(bugsnagService.notify(new RuntimeException("Test error for Events microservice"))) {
+            responseObserver.onNext(MessageResponse.newBuilder().setMessage("Bugsnag working!").build());
+            responseObserver.onCompleted();
+        } else {
+            responseObserver.onNext(MessageResponse.newBuilder().setMessage("Bugsnag not working!").build());
+            responseObserver.onCompleted();
+        }
     }
 }

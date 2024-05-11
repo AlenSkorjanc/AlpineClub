@@ -1,66 +1,69 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const Dotenv = require('dotenv-webpack');
+require('dotenv').config();
 
 const deps = require("./package.json").dependencies;
-module.exports = (_, argv) => ({
-  output: {
-    publicPath: "http://localhost:3000/",
-  },
+module.exports = (_, args) => {
+  return ({
+    output: {
+      publicPath: "http://localhost:3000/",
+    },
 
-  resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
-  },
+    resolve: {
+      extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    },
 
-  devServer: {
-    port: 3000,
-    historyApiFallback: true,
-  },
+    devServer: {
+      port: 3000,
+      historyApiFallback: true,
+    },
 
-  module: {
-    rules: [
-      {
-        test: /\.m?js/,
-        type: "javascript/auto",
-        resolve: {
-          fullySpecified: false,
+    module: {
+      rules: [
+        {
+          test: /\.m?js/,
+          type: "javascript/auto",
+          resolve: {
+            fullySpecified: false,
+          },
         },
-      },
-      {
-        test: /\.(css|s[ac]ss)$/i,
-        use: ["style-loader", "css-loader", "postcss-loader"],
-      },
-      {
-        test: /\.(ts|tsx|js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
+        {
+          test: /\.(css|s[ac]ss)$/i,
+          use: ["style-loader", "css-loader", "postcss-loader"],
         },
-      },
+        {
+          test: /\.(ts|tsx|js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+          },
+        },
+      ],
+    },
+
+    plugins: [
+      new ModuleFederationPlugin({
+        name: "host",
+        filename: "remoteEntry.js",
+        remotes: {
+          login: `login@${process.env.LOGIN_REMOTE_ENTRY}/remoteEntry.js`,
+          articles: `articles@${process.env.ARTICLES_REMOTE_ENTRY}/remoteEntry.js`,
+          events_mf: `events_mf@${process.env.EVENTS_REMOTE_ENTRY}/remoteEntry.js`
+        },
+        exposes: {},
+        shared: {
+          ...deps,
+          "solid-js": {
+            singleton: true,
+            requiredVersion: deps["solid-js"],
+          },
+        },
+      }),
+      new HtmlWebPackPlugin({
+        template: "./src/index.html",
+      }),
+      new Dotenv()
     ],
-  },
-
-  plugins: [
-    new ModuleFederationPlugin({
-      name: "host",
-      filename: "remoteEntry.js",
-      remotes: {
-        login: `login@${process.env.LOGIN_REMOTE_ENTRY}`,
-        articles: `articles@${process.env.ARTICLES_REMOTE_ENTRY}`,
-        events_mf: `events_mf@${process.env.EVENTS_REMOTE_ENTRY}`
-      },
-      exposes: {},
-      shared: {
-        ...deps,
-        "solid-js": {
-          singleton: true,
-          requiredVersion: deps["solid-js"],
-        },
-      },
-    }),
-    new HtmlWebPackPlugin({
-      template: "./src/index.html",
-    }),
-    new Dotenv()
-  ],
-});
+  })
+};

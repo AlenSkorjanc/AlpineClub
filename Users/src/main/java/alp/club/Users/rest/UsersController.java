@@ -4,9 +4,11 @@ import alp.club.Users.dao.UsersRepository;
 import alp.club.Users.dto.LoginRequest;
 import alp.club.Users.dto.User;
 import alp.club.Users.vao.UserEntity;
+import com.bugsnag.Bugsnag;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,9 @@ public class UsersController {
     private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
     private final UsersRepository usersRepository;
+
+    @Autowired
+    private Bugsnag bugsnag;
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
@@ -138,5 +143,14 @@ public class UsersController {
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/test-bugsnag")
+    public ResponseEntity<String> testBugsnag() {
+        if(bugsnag.notify(new RuntimeException("Test error from users microservice"))) {
+            return ResponseEntity.ok("Bugsnag working!");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Bugsnag not working!");
+        }
     }
 }

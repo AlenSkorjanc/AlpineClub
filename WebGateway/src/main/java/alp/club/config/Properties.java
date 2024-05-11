@@ -1,4 +1,4 @@
-package alp.club;
+package alp.club.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -12,5 +12,7 @@ public class Properties {
     private String eventsUrl;
 
     private String articlesUrl;
+
+    private String releaseStage;
 
 }

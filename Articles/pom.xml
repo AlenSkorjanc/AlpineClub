@@ -76,6 +76,11 @@
             <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.bugsnag</groupId>
+            <version>[3.0,4.0)</version>
+            <artifactId>bugsnag</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

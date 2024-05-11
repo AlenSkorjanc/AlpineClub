@@ -11,6 +11,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@bugsnag/js": "^7.23.0",
+    "@bugsnag/plugin-express": "^7.22.7",
     "@grpc/grpc-js": "^1.10.7",
     "@grpc/proto-loader": "^0.7.13",
     "cors": "^2.8.5",

@@ -23,6 +23,8 @@ service EventService {
     rpc UpdateEvent(EventRequest) returns (EventResponse);
 
     rpc DeleteEventById(EventIdRequest) returns (EmptyResponse);
+
+    rpc TestBugsnag(EmptyRequest) returns (MessageResponse);
 }
 
 message EventIdRequest {
@@ -44,3 +46,7 @@ message EventsResponse {
 message EmptyRequest {}
 
 message EmptyResponse {}
+
+message MessageResponse {
+    string message = 1;
+}
