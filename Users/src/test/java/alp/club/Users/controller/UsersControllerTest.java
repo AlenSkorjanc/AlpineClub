@@ -6,6 +6,7 @@ import alp.club.Users.rest.UsersController;
 import alp.club.Users.vao.UserEntity;
 import alp.club.Users.vao.UserRole;
 import alp.club.Users.vao.UserStatus;
+import com.bugsnag.Bugsnag;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,9 @@ public class UsersControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @MockBean
+    private Bugsnag bugsnag;
 
     @MockBean
     private UsersRepository usersRepository;
