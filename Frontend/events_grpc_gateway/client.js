@@ -10,11 +10,11 @@ var Bugsnag = require('@bugsnag/js');
 var BugsnagPluginExpress = require('@bugsnag/plugin-express');
 
 Bugsnag.start({
-    apiKey: '9ce7a89aaf0f4f23192a8e6643818b2e',
+    apiKey: process.env.BUGSNAG_API_KEY,
     plugins: [BugsnagPluginExpress],
     appVersion: process.env.APP_VERSION,
     releaseStage: process.env.RELEASE_STAGE
-})
+});
 
 var middleware = Bugsnag.getPlugin('express');
 

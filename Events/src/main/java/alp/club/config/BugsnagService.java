@@ -11,10 +11,10 @@ public class BugsnagService {
     private final Bugsnag bugsnag;
 
     @Inject
-    public BugsnagService(@ConfigProperty(name = "releaseStage") String releaseStage) {
-        this.bugsnag = new Bugsnag("cceced9cd2af2a3e135415870e5b6aec");
+    public BugsnagService(@ConfigProperty(name = "releaseStage") String releaseStage, @ConfigProperty(name = "appVersion") String appVersion, @ConfigProperty(name = "bugsnagApiKey") String bugsnagApiKey) {
+        this.bugsnag = new Bugsnag(bugsnagApiKey);
+        this.bugsnag.setAppVersion(appVersion);
         this.bugsnag.setReleaseStage(releaseStage);
-        this.bugsnag.setAppVersion("1.0");
     }
 
     public boolean notify(Throwable throwable) {

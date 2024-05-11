@@ -11,13 +11,19 @@ import org.springframework.context.annotation.Import;
 @Import(BugsnagSpringConfiguration.class)
 public class BugsnagConfig {
 
+    @Value("${bugsnagApiKey}")
+    private String bugsnagApiKey;
+
+    @Value("${appVersion}")
+    private String appVersion;
+
     @Value("${releaseStage}")
     private String releaseStage;
 
     @Bean
     public Bugsnag bugsnag() {
-        Bugsnag bugsnag = new Bugsnag("36622396d1e003e195a9c6b1fd3d67d0");
-        bugsnag.setAppVersion("1.0");
+        Bugsnag bugsnag = new Bugsnag(bugsnagApiKey);
+        bugsnag.setAppVersion(appVersion);
         bugsnag.setReleaseStage(releaseStage);
         return bugsnag;
     }

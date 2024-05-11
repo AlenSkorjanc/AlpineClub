@@ -50,7 +50,7 @@ const Login = () => {
 			setLoginError(true);
 		}
 	};
-	
+
 	return (
 		<div class="flex justify-center items-center">
 			<div class="bg-white shadow-md p-5 rounded-xl mt-20 w-96">

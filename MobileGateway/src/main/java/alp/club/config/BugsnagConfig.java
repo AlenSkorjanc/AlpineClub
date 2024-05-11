@@ -13,8 +13,8 @@ public class BugsnagConfig {
 
     @Bean
     public Bugsnag bugsnag() {
-        Bugsnag bugsnag = new Bugsnag("f18e0305730d5c7fcf329a8a4b071b4a");
-        bugsnag.setAppVersion("1.0");
+        Bugsnag bugsnag = new Bugsnag(properties.getBugsnagApiKey());
+        bugsnag.setAppVersion(properties.getAppVersion());
         bugsnag.setReleaseStage(properties.getReleaseStage());
         return bugsnag;
     }

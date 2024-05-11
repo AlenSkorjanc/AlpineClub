@@ -13,6 +13,10 @@ public class Properties {
 
     private String articlesUrl;
 
+    private String appVersion;
+
     private String releaseStage;
+
+    private String bugsnagApiKey;
 
 }
