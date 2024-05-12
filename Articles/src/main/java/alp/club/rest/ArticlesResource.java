@@ -83,11 +83,12 @@ public class ArticlesResource {
 
     @GET
     @Path("/test-bugsnag")
+    @Produces(MediaType.APPLICATION_JSON)
     public Uni<Response> testBugsnag() {
         if(bugsnag.notify(new RuntimeException("Test error for Articles microservice"))) {
             return Uni.createFrom().item(Response.ok("Bugsnag working!").type(MediaType.TEXT_PLAIN).build());
         } else {
-            return Uni.createFrom().item(Response.serverError().entity("Bugsnag working!").type(MediaType.TEXT_PLAIN).build());
+            return Uni.createFrom().item(Response.serverError().entity("Bugsnag not working!").type(MediaType.TEXT_PLAIN).build());
         }
     }
 }

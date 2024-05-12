@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "alp.club";
+
+message Template {
+    string id = 1;
+}
+
+service TemplateService {
+    rpc GetAll(EmptyRequest) returns (stream TemplatesResponse);
+
+    rpc GetById(TemplateIdRequest) returns (TemplateResponse);
+
+    rpc Add(TemplateRequest) returns (TemplateResponse);
+
+    rpc Update(TemplateRequest) returns (TemplateResponse);
+
+    rpc DeleteById(TemplateIdRequest) returns (EmptyResponse);
+
+    rpc TestBugsnag(EmptyRequest) returns (MessageResponse);
+}
+
+message TemplateIdRequest {
+    string id = 1;
+}
+
+message TemplateRequest {
+    Template template = 1;
+}
+
+message TemplateResponse {
+    Template template = 1;
+}
+
+message TemplatesResponse {
+    repeated Template templates = 1;
+}
+
+message EmptyRequest {}
+
+message EmptyResponse {}
+
+message MessageResponse {
+    string message = 1;
+}
