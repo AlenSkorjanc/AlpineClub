@@ -6,11 +6,12 @@ require('dotenv').config();
 const deps = require("./package.json").dependencies;
 
 var publicPath = "http://localhost:3001/";
-/*if(process.env.RELEASE_STAGE === "production") {
+if(process.env.RELEASE_STAGE === "production") {
   publicPath = "https://login-alenskorjanc-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com/";
-}*/
+}
 
 console.log(`Release stage: ${process.env.RELEASE_STAGE}`);
+console.log(`publicPath: ${publicPath}`);
 
 module.exports = (_, argv) => ({
   output: {
