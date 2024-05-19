@@ -24,7 +24,7 @@ const Events = () => {
     });
 
     const formatDate = (dateEpoch) => {
-        const date = new Date(dateEpoch * 1000);
+        const date = new Date(dateEpoch);
         return `${date.getDate()}. ${date.getMonth() + 1}. ${date.getFullYear()}`
     }
 
