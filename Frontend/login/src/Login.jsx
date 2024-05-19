@@ -27,6 +27,8 @@ const getUser = () => {
 };
 
 const Login = () => {
+	console.log(`Release stage: ${process.env.RELEASE_STAGE}`)
+
 	const [email, setEmail] = createSignal("");
 	const [password, setPassword] = createSignal("");
 	const [loggedInUser, setLoggedInUser] = createSignal(null);
