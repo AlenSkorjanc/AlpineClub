@@ -19,7 +19,13 @@ module.exports = (_, argv) => ({
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
       "Access-Control-Allow-Headers": "*"
-    }
+    },
+    host: '0.0.0.0',
+    allowedHosts: [
+      'localhost',
+      'login',
+      'login-alenskorjanc-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
+    ]
   },
 
   module: {
