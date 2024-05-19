@@ -4,10 +4,12 @@ const Dotenv = require('dotenv-webpack');
 require('dotenv').config();
 
 const deps = require("./package.json").dependencies;
+
+console.log(`Release stage: ${process.env.RELEASE_STAGE}`);
 module.exports = (_, args) => {
   return ({
     output: {
-      publicPath: "http://localhost:3000/",
+      publicPath: process.env.PUBLIC_PATH,
     },
 
     resolve: {
@@ -17,6 +19,12 @@ module.exports = (_, args) => {
     devServer: {
       port: 3000,
       historyApiFallback: true,
+      host: '0.0.0.0',
+      allowedHosts: [
+        'localhost',
+        'host',
+        'host-alenskorjanc-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
+      ]
     },
 
     module: {
@@ -63,7 +71,9 @@ module.exports = (_, args) => {
       new HtmlWebPackPlugin({
         template: "./src/index.html",
       }),
-      new Dotenv()
+      new Dotenv({
+        systemvars: true
+      })
     ],
   })
 };

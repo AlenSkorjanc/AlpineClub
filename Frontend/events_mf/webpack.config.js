@@ -21,8 +21,8 @@ module.exports = (_, argv) => ({
     host: '0.0.0.0',
     allowedHosts: [
       'localhost',
-      'articles',
-      'articles-alenskorjanc-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
+      'events',
+      'events-alenskorjanc-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
     ]
   },
 
