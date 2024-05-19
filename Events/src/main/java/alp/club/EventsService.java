@@ -10,15 +10,6 @@ import jakarta.inject.Inject;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import alp.club.EventServiceGrpc;
-import alp.club.EmptyRequest;
-import alp.club.EventsResponse;
-import alp.club.Event;
-import alp.club.EventIdRequest;
-import alp.club.EventResponse;
-import alp.club.EventRequest;
-import alp.club.EmptyResponse;
-import alp.club.MessageResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
