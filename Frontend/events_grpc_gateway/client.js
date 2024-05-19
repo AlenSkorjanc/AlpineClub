@@ -23,6 +23,8 @@ app.use(middleware.requestHandler);
 app.use(cors());
 app.use(express.json());
 
+console.log(`Release stage: ${process.env.RELEASE_STAGE}`);
+
 const serverCert = fs.readFileSync(path.resolve(__dirname, `security/${process.env.RELEASE_STAGE}/web-gateway.cer`));
 var client = new services.EventServiceClient(process.env.GATEWAY_URL, grpc.credentials.createSsl(serverCert));
 
