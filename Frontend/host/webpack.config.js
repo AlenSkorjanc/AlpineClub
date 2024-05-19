@@ -22,8 +22,7 @@ module.exports = (_, args) => {
       host: '0.0.0.0',
       allowedHosts: [
         'localhost',
-        'host',
-        'host-alenskorjanc-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
+        process.env.PUBLIC_PATH
       ]
     },
 
