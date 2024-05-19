@@ -6,6 +6,7 @@ require('dotenv').config();
 const deps = require("./package.json").dependencies;
 
 console.log(`Release stage: ${process.env.RELEASE_STAGE}`);
+console.log(`Host: ${process.env.PUBLIC_PATH.replace('https://', '').replace('/', '')}`);
 module.exports = (_, args) => {
   return ({
     output: {
@@ -22,7 +23,8 @@ module.exports = (_, args) => {
       host: '0.0.0.0',
       allowedHosts: [
         'localhost',
-        process.env.PUBLIC_PATH
+        'alpclub',
+        process.env.PUBLIC_PATH.replace('https://', '').replace('/', '')
       ]
     },
 
