@@ -1,7 +1,6 @@
 package alp.club;
 
 import alp.club.config.Properties;
-import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -27,7 +26,6 @@ public class WebGatewayApplication {
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder, Properties properties) {
         logger.info("Release stage: {}", properties.getReleaseStage());
-        logger.info("Events URL: {}", properties.getEventsUrl());
 
         return builder.routes()
                 .route(r -> r.path("/users/**")
@@ -41,8 +39,7 @@ public class WebGatewayApplication {
                         .uri(properties.getArticlesUrl())
                 )
                 .route(r -> r.path("/**")
-                        .filters(f -> f
-                                .addRequestHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE)
+                        .filters(f -> f.addRequestHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE)
                                 .addResponseHeader(GATEWAY_HEADER_KEY, GATEWAY_HEADER_VALUE))
                         .uri(properties.getEventsUrl())
                 )

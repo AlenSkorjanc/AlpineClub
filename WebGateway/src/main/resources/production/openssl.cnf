@@ -1,0 +1,24 @@
+[ req ]
+default_bits        = 2048
+default_md          = sha256
+distinguished_name  = req_distinguished_name
+req_extensions      = req_ext
+x509_extensions     = v3_ca
+prompt              = no
+
+[ req_distinguished_name ]
+C  = SI
+ST = Štajerska
+L  = Maribor
+O  = AlpClub
+CN = web-gateway
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ v3_ca ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1   = web-gateway-alenskorjanc-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+DNS.2   = web-gateway
